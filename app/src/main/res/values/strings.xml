@@ -40,4 +40,5 @@
     <string name="txtCodigoVenta">Codigo de venta:</string>
     <string name="CodigoVenta">Código</string>
     <string name="ConcretarVentaFinalizar">Finalizar</string>
+    <string name="txtCarritoDeCompras">Carrito de compras</string>
 </resources>
