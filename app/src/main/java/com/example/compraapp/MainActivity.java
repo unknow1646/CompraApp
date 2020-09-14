@@ -13,13 +13,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button btn1 = (Button) findViewById(R.id.button5);
-        Button btn2 = (Button) findViewById(R.id.button6);
-        Button btn3 = (Button) findViewById(R.id.button8);
+        Button btn1 = (Button) findViewById(R.id.btn_main_Carrito);
+        Button btn2 = (Button)findViewById(R.id.btn_Main_CompraConcretada);
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, CarritoDeCompras.class);
+                Intent i=new Intent(MainActivity.this, CarritoDeCompra.class);
                 startActivity(i);
 
 
@@ -29,24 +28,10 @@ public class MainActivity extends AppCompatActivity {
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, CompraConcretada.class);
+                Intent i=new Intent(MainActivity.this, CompraConcretada.class);
                 startActivity(i);
 
             }
         });
-
-
-        btn3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this,Ventas.class);
-                startActivity(i);
-
-            }
-        });
-
-
-
-
     }
 }
