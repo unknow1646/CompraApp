@@ -26,10 +26,12 @@ public class MantencionDeProductos extends AppCompatActivity implements View.OnC
             case R.id.btn_RegistrarProducto:
                 Intent registrar = new Intent(MantencionDeProductos.this, RegistrarProducto.class);
                 startActivity(registrar);
+                break;
 
             case R.id.btn_EditarEliminarProducto:
                 Intent editar = new Intent(MantencionDeProductos.this, EditarEliminarProducto.class);
                 startActivity(editar);
+                break;
 
         }
 
