@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(MainActivity.this, CarritoDeCompra.class);
+                Intent i=new Intent(MainActivity.this, CarritoDeCompras.class);
                 startActivity(i);
 
 
@@ -33,5 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
+
     }
 }
