@@ -13,7 +13,51 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button btn1 = (Button) findViewById(R.id.btn_main_Carrito);
-        Button btn2 = (Button)findViewById(R.id.btn_Main_CompraConcretada);
+        Button btnCarrito = (Button) findViewById(R.id.btn_main_Carrito);
+        Button btnCompraConcretada = (Button)findViewById(R.id.btn_Main_CompraConcretada);
+        Button btnVentas = (Button)findViewById(R.id.btn_Main_Ventas);
+        Button btnBuscar = findViewById(R.id.btn_main_buscar);
+        Button btnMantener = findViewById(R.id.btn_Main_MantencionProductos);
+
+        btnCarrito.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, CarritoDeCompras.class);
+                startActivity(i);
+            }
+        });
+
+        btnCompraConcretada.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, VentaConcretada.class);
+                startActivity(i);
+            }
+        });
+
+        btnVentas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, Ventas.class);
+                startActivity(i);
+            }
+        });
+
+        btnBuscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, BusquedaDeProductos.class);
+                startActivity(i);
+            }
+        });
+        btnMantener.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, MantencionDeProductos.class);
+                startActivity(i);
+            }
+        });
+
     }
+
 }

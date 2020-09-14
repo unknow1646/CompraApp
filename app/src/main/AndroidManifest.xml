@@ -16,7 +16,7 @@
         <activity android:name=".BusquedaDeProductos" />
         <activity android:name=".MantencionDeProductos" />
         <activity android:name=".CompraConcretada" />
-        <activity android:name=".CarritoDeCompra" />
+        <activity android:name=".CarritoDeCompras" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
