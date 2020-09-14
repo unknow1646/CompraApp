@@ -8,5 +8,7 @@
     <string name="ircompraconcretada">Compra concretada</string>
     <string name="Codigo_compra_concretada">Codigo de compra</string>
     <string name="Bottom_Codigo_compra_concretada">Finalizar</string>
+    <string name="ir_Confirmar_venta">Confirmar venta</string>
     <string name="Confirmar_venta">Confirmar venta</string>
+
 </resources>
