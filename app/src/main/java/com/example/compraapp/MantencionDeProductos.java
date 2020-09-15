@@ -9,10 +9,12 @@ import android.widget.Button;
 
 public class MantencionDeProductos extends AppCompatActivity implements View.OnClickListener {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mantencion_de_productos);
+
         Button btnRegistrar = findViewById(R.id.btn_RegistrarProducto);
         Button btneditar = findViewById(R.id.btn_EditarEliminarProducto);
         btnRegistrar.setOnClickListener(this);
