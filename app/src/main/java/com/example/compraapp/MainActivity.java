@@ -3,11 +3,15 @@ package com.example.compraapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
+
+    DataBaseHelper dataBaseHelper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
         Button btnVentas = (Button)findViewById(R.id.btn_Main_Ventas);
         Button btnBuscar = findViewById(R.id.btn_main_buscar);
         Button btnMantener = findViewById(R.id.btn_Main_MantencionProductos);
+
+        dataBaseHelper = new DataBaseHelper(MainActivity.this);
 
         btnCarrito.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,5 +65,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+
 
 }

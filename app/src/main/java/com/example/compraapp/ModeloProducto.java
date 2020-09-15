@@ -1,13 +1,15 @@
 package com.example.compraapp;
 
 public class ModeloProducto {
+    public int prod_codigo;
     public int ven_rut;
     public String prod_nombre;
     public int prod_stock;
     public String prod_tipo;
     public int prod_precio;
 
-    public ModeloProducto(int ven_rut, String prod_nombre, int prod_stock, String prod_tipo, int prod_precio) {
+    public ModeloProducto(int prod_codigo, int ven_rut, String prod_nombre, int prod_stock, String prod_tipo, int prod_precio) {
+        this.prod_codigo = prod_codigo;
         this.ven_rut = ven_rut;
         this.prod_nombre = prod_nombre;
         this.prod_stock = prod_stock;
@@ -18,12 +20,21 @@ public class ModeloProducto {
     @Override
     public String toString() {
         return "ModeloProducto{" +
-                "ven_rut=" + ven_rut +
+                "prod_codigo=" + prod_codigo +
+                ", ven_rut=" + ven_rut +
                 ", prod_nombre='" + prod_nombre + '\'' +
                 ", prod_stock=" + prod_stock +
                 ", prod_tipo='" + prod_tipo + '\'' +
                 ", prod_precio=" + prod_precio +
                 '}';
+    }
+
+    public int getProd_codigo() {
+        return prod_codigo;
+    }
+
+    public void setProd_codigo(int prod_codigo) {
+        this.prod_codigo = prod_codigo;
     }
 
     public int getVen_rut() {

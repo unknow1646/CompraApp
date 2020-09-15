@@ -41,4 +41,5 @@
     <string name="CodigoVenta">Código</string>
     <string name="ConcretarVentaFinalizar">Finalizar</string>
     <string name="txtCarritoDeCompras">Carrito de compras</string>
+    <string name="ProdCodigo">Código de barra</string>
 </resources>
