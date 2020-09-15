@@ -73,7 +73,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public boolean instanciaCompra(ModeloCompra modeloCompra){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put("com_autoincrementable", modeloCompra.getCom_id());
         cv.put("cli_rut",modeloCompra.getCli_rut());
         cv.put("ven_rut",modeloCompra.getVen_rut());
         cv.put("com_hora_entrega",modeloCompra.getCom_hora_entrega());
@@ -179,26 +178,25 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             return false;
         }
     }
+*/
 
 
-
-    public List<ModeloCompra> getEveryoneBusqueda(){
-        List<ModeloCompra> returnList = new ArrayList<>();
-        String queryString = "SELECT * FROM producto WHERE prod_nombre="+nombre del producto ingresado en el edit text ;
+    public List<ModeloProducto> getEveryoneBusqueda(String busqueda){
+        List<ModeloProducto> returnList = new ArrayList<>();
+        String queryString = "SELECT * FROM producto WHERE prod_nombre LIKE \"%"+busqueda+"%\"";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString, null);
         if(cursor.moveToFirst()){
             //loop results
             do{
-
-                int cod = cursor.getProd_codigo(0);
-                int ven_rut = cursor.getVen_rut(1);
+                int cod = cursor.getInt(0);
+                int rut = cursor.getInt(1);
                 String nombreprod = cursor.getString(2);
-                int stock = cursor.getProd_stock(3);
-                String tipo= cursor.getProd_tipo(4);
-                int precio=getProd_precio(5);
-                ModeloProducto newmodeloproducto = new ModeloProducto(cod, ven_rut, nombreprod, stock,tipo,precio);
-                returnList.add(newmodeloproducto);
+                int stock = cursor.getInt(3);
+                String tipo= cursor.getString(4);
+                int precio= cursor.getInt(5);
+                ModeloProducto modeloProducto = new ModeloProducto(cod, rut, nombreprod, stock,tipo,precio);
+                returnList.add(modeloProducto);
             }while(cursor.moveToNext());
         }
         else{
@@ -210,7 +208,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.close();
         return returnList;
     }
-*/
 
     public boolean agregarProductoAlCarro(ModeloProducto modeloProducto){
         SQLiteDatabase db = this.getWritableDatabase();

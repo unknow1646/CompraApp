@@ -18,7 +18,7 @@
 
     <EditText
         android:id="@+id/ti_ProductoBusqueda"
-        android:layout_width="293dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
@@ -26,22 +26,12 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="@string/ProductoABuscar"
+        app:layout_constraintEnd_toStartOf="@+id/btn_buscar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_BusquedaDeProductos" />
 
-    <Button
-        android:id="@+id/btn_EliminarDelCarrito"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="@+id/ti_ProductoBusqueda"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/ti_ProductoBusqueda" />
-
     <ListView
+        android:id="@+id/lv_buscar"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -64,4 +54,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_buscar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="@string/btnBuscar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_BusquedaDeProductos" />
 </androidx.constraintlayout.widget.ConstraintLayout>

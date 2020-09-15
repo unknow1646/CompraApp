@@ -42,4 +42,5 @@
     <string name="ConcretarVentaFinalizar">Finalizar</string>
     <string name="txtCarritoDeCompras">Carrito de compras</string>
     <string name="ProdCodigo">Código de barra</string>
+    <string name="btnBuscar">Buscar</string>
 </resources>
