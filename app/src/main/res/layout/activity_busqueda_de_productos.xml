@@ -36,10 +36,10 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="Button"
+        app:layout_constraintBottom_toBottomOf="@+id/ti_ProductoBusqueda"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/ti_ProductoBusqueda"
-        tools:layout_editor_absoluteY="53dp" />
+        app:layout_constraintStart_toEndOf="@+id/ti_ProductoBusqueda" />
 
     <ListView
         android:layout_width="0dp"

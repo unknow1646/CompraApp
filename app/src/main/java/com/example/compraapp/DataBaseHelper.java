@@ -136,7 +136,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return returnList;
     }
 
-    public void updateFinalizarCompra(ModeloCompra modeloCompra){
+    public void updateFinalizarVenta(ModeloCompra modeloCompra){
         int id = 0;
         SQLiteDatabase db = this.getReadableDatabase();
         ContentValues cv = new ContentValues();
