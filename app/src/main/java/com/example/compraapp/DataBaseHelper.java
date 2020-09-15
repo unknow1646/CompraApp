@@ -1,5 +1,6 @@
 package com.example.compraapp;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -29,11 +30,33 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL(crearTablaCompra);
         db.execSQL(crearTablaCarrito);
         db.execSQL(crearTablaCarrProd);
-
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
     }
+
+    public boolean checkProducto(ModeloProducto modeloProducto){
+        SQLiteDatabase db = this.getReadableDatabase();
+        return true;
+
+    }
+
+    public boolean agregarProducto(ModeloProducto modeloProducto){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv =new ContentValues();
+        cv.put("prod_codigo",modeloProducto.getProd_codigo());
+        cv.put("ven_rut",modeloProducto.getVen_rut());
+        cv.put("prod_nombre",modeloProducto.getProd_nombre());
+        cv.put("prod_stock",modeloProducto.getProd_stock());
+        cv.put("prod_tipo",modeloProducto.getProd_tipo());
+        cv.put("prod_precio",modeloProducto.getProd_precio());
+
+        long insert = db.insert("producto",null,cv);
+
+        return insert != -1;
+    }
+
+
 }
