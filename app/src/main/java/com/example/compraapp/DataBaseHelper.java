@@ -2,10 +2,14 @@ package com.example.compraapp;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
 
@@ -59,4 +63,84 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
 
+    public List<ModeloCompra> getEveryoneCompra(){
+        List<ModeloCompra> returnList = new ArrayList<>();
+        String queryString = "SELECT * FROM compra " ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if(cursor.moveToFirst()){
+            //loop results
+            do{
+
+                int compraclirut = cursor.getInt(0);
+                int compravenrut = cursor.getInt(1);
+                int comprahoranetrega=cursor.getInt(2);
+                int comprafechaentrega= cursor.getInt(3);
+                ModeloCompra newmodelocompra = new ModeloCompra(compraclirut,compravenrut,comprahoranetrega,comprafechaentrega);
+                returnList.add(newmodelocompra);
+            }while(cursor.moveToNext());
+        }
+        else{
+            //FAIL
+        }
+
+        //close everything
+        cursor.close();
+        db.close();
+        return returnList;
+    }
+
+    public void updateFinalizarCompra(ModeloCompra modeloCompra){
+        int id = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("cli_rut", modeloCompra.getCli_rut());
+        cv.put("ven_rut", modeloCompra.getVen_rut());
+        cv.put("com_hora_entrega", modeloCompra.getCom_hora_entrega());
+        cv.put("com_fecha_entrega", modeloCompra.getCom_fecha_entrega());
+        db.update("compra", cv, "_id=" +id  , null);
+    }
+
+    public void updateFechaHoraCompra(ModeloCompra modeloCompra){
+        int id = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("com_hora_entrega", modeloCompra.getCom_hora_entrega());
+        cv.put("com_fecha_entrega", modeloCompra.getCom_fecha_entrega());
+        db.update("compra", cv, "_id=" +id  , null);
+    }
+
+    public void updateCarrito(ModeloCarrito modeloCarrito){
+        int id = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("cli_rut", modeloCarrito.getCli_rut());
+        cv.put("carr_cant_prod", modeloCarrito.getCar_cantidad_productos());
+        cv.put("carr_precio_total", modeloCarrito.getCar_precio_total());
+        db.update("compra", cv, "_id=" +id  , null);
+    }
+
+
+
+/*
+    public boolean deleteCarrito(ModeloCarritoProducto modeloCarritoProducto){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String queryString = "DELETE FROM "+carr_prod+" WHERE "+COLUMN_ID+" = "+modeloCarritoProducto.get();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if(cursor.moveToFirst()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+ */
+
+
+
+
 }
+
+
+
