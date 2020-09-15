@@ -128,8 +128,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
 
-
-/*
+    /*
     public boolean deleteCarrito(ModeloCarritoProducto modeloCarritoProducto){
         SQLiteDatabase db = this.getWritableDatabase();
         String queryString = "DELETE FROM "+carr_prod+" WHERE "+COLUMN_ID+" = "+modeloCarritoProducto.get();
@@ -142,7 +141,105 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
- */
+
+
+    public List<ModeloCompra> getEveryoneBusqueda(){
+        List<ModeloCompra> returnList = new ArrayList<>();
+        String queryString = "SELECT * FROM producto WHERE prod_nombre="+nombre del producto ingresado en el edit text ;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if(cursor.moveToFirst()){
+            //loop results
+            do{
+
+                int cod = cursor.getProd_codigo(0);
+                int ven_rut = cursor.getVen_rut(1);
+                String nombreprod = cursor.getString(2);
+                int stock = cursor.getProd_stock(3);
+                String tipo= cursor.getProd_tipo(4);
+                int precio=getProd_precio(5);
+                ModeloProducto newmodeloproducto = new ModeloProducto(cod, ven_rut, nombreprod, stock,tipo,precio);
+                returnList.add(newmodeloproducto);
+            }while(cursor.moveToNext());
+        }
+        else{
+            //FAIL
+        }
+
+        //close everything
+        cursor.close();
+        db.close();
+        return returnList;
+    }
+*/
+
+    public boolean agregarProductoAlCarro(ModeloProducto modeloProducto){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv =new ContentValues();
+        cv.put("prod_codigo",modeloProducto.getProd_codigo());
+        cv.put("ven_rut",modeloProducto.getVen_rut());
+        cv.put("prod_nombre",modeloProducto.getProd_nombre());
+        cv.put("prod_stock",modeloProducto.getProd_stock());
+        cv.put("prod_tipo",modeloProducto.getProd_tipo());
+        cv.put("prod_precio",modeloProducto.getProd_precio());
+
+        long insert = db.insert("carrito",null,cv);
+
+        return insert != -1;
+    }
+
+
+
+    public List<ModeloCarritoProducto> getEveryoneProductos() {
+        List<ModeloCarritoProducto> returnList = new ArrayList<>();
+        String queryString = "SELECT * FROM carr_prod";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            //loop results
+            do {
+
+                int carrproclirut = cursor.getInt(0);
+                int carrprovenrut = cursor.getInt(1);
+                String nombreprod = cursor.getString(2);
+                int id = cursor.getInt(3);
+                ModeloCarritoProducto newmodelocarritoproducto = new ModeloCarritoProducto(carrproclirut, carrprovenrut, nombreprod, id);
+                returnList.add(newmodelocarritoproducto);
+            } while (cursor.moveToNext());
+        } else {
+            //FAIL
+        }
+        //close everything
+        cursor.close();
+        db.close();
+        return returnList;
+    }
+/*
+    public boolean deleteProducto(ModeloCarritoProducto modelocarritoproducto){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String queryString = "DELETE FROM carr_prod WHERE com_autoincrementable =" + idseleccionada;
+        Cursor cursor = db.rawQuery(queryString, null);
+        if(cursor.moveToFirst()){
+            return true;
+        }
+        else{
+            return false;
+        }
+
+*/
+
+    public boolean confirmcompra(ModeloCarritoProducto modelocarritoproducto){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv =new ContentValues();
+        cv.put("cli_rut",modelocarritoproducto.getCli_rut());
+        cv.put("ven_rut",modelocarritoproducto.getVen_rut());
+        cv.put("prod_nombre",modelocarritoproducto.getProd_nombre());
+
+        long insert = db.insert("compra",null,cv);
+
+        return insert != -1;
+    }
+
 
 
 

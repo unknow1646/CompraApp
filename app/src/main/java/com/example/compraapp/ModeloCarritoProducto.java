@@ -5,7 +5,7 @@ public class ModeloCarritoProducto {
     public int ven_rut;
     public String prod_nombre;
 
-    public ModeloCarritoProducto(int cli_rut, int ven_rut, String prod_nombre) {
+    public ModeloCarritoProducto(int cli_rut, int ven_rut, String prod_nombre, int id) {
 
         this.cli_rut = cli_rut;
         this.ven_rut = ven_rut;
