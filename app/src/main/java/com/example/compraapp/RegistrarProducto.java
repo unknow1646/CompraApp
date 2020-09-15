@@ -2,6 +2,7 @@ package com.example.compraapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
@@ -11,7 +12,7 @@ import android.widget.Toast;
 
 public class RegistrarProducto extends AppCompatActivity {
     EditText prod_codigo, prod_nombre, prod_stock, prod_tipo, prod_precio;
-    Button btn_Registrar;
+    Button btn_Registrar,btn_Volver;
     DataBaseHelper dataBaseHelper;
 
 
@@ -25,6 +26,7 @@ public class RegistrarProducto extends AppCompatActivity {
         prod_tipo = findViewById(R.id.ti_TipoProducto);
         prod_precio = findViewById(R.id.ti_PrecioProducto);
         btn_Registrar = findViewById(R.id.btn_RegistrarProducto);
+        btn_Volver = findViewById(R.id.btn_RegistrarVolver);
 
         dataBaseHelper = new DataBaseHelper(RegistrarProducto.this);
 
@@ -43,12 +45,22 @@ public class RegistrarProducto extends AppCompatActivity {
                 }
 
                 dataBaseHelper = new DataBaseHelper(RegistrarProducto.this);
-
-                boolean success = dataBaseHelper.agregarProducto(modeloProducto);
-                Toast.makeText(RegistrarProducto.this, "Success = "+success,Toast.LENGTH_SHORT).show();
+                if(dataBaseHelper.checkProducto(modeloProducto)==false){
+                    Toast.makeText(RegistrarProducto.this, "Este producto ya existe", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    boolean success = dataBaseHelper.agregarProducto(modeloProducto);
+                    Toast.makeText(RegistrarProducto.this, "Success = " + success, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
-
+        btn_Volver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(RegistrarProducto.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
     }
 }
