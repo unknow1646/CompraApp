@@ -41,6 +41,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     }
 
+    //Revisa si existe el producto en la BD
     public boolean checkProducto(ModeloProducto modeloProducto){
         //GetCount
         boolean ret;
@@ -54,6 +55,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return ret;
     }
 
+    //Agrega producto a tabla 'producto'
     public boolean agregarProducto(ModeloProducto modeloProducto){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv =new ContentValues();
@@ -69,7 +71,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return insert != -1;
     }
 
-
+    //agrega una instancia de 'compra' en la tabla
     public boolean instanciaCompra(ModeloCompra modeloCompra){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -83,6 +85,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return insert != -1;
     }
 
+    //consulta en tabla productos (Vendedor) [para editar productos]
     public List<ModeloProducto> getProductos(int rut){
         List<ModeloProducto> returnList = new ArrayList<>();
         String queryString = "SELECT * FROM producto WHERE ven_rut = "+Integer.toString(rut);
@@ -108,6 +111,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return returnList;
     }
 
+    //Query de las solicitudes de compra disponibles
     public List<ModeloCompra> getEveryoneCompra(){
         List<ModeloCompra> returnList = new ArrayList<>();
         String queryString = "SELECT * FROM compra";
@@ -135,9 +139,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return returnList;
     }
 
+    //UPTATE tabla compra con su hora y fecha de entrega
     public void updateFinalizarVenta(ModeloCompra modeloCompra){
         int id = 0;
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("cli_rut", modeloCompra.getCli_rut());
         cv.put("ven_rut", modeloCompra.getVen_rut());
@@ -146,6 +151,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.update("compra", cv, "_id=" +id  , null);
     }
 
+    //
     public void updateFechaHoraCompra(ModeloCompra modeloCompra){
         int id = 0;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -181,6 +187,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 */
 
 
+    //QUERY productos para agregar al carrito
     public List<ModeloProducto> getEveryoneBusqueda(String busqueda){
         List<ModeloProducto> returnList = new ArrayList<>();
         String queryString = "SELECT * FROM producto WHERE prod_nombre LIKE \"%"+busqueda+"%\"";
@@ -209,6 +216,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return returnList;
     }
 
+    //INSERT producto a carr_com
     public boolean agregarProductoAlCarro(ModeloProducto modeloProducto){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv =new ContentValues();
@@ -219,7 +227,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cv.put("prod_tipo",modeloProducto.getProd_tipo());
         cv.put("prod_precio",modeloProducto.getProd_precio());
 
-        long insert = db.insert("carrito",null,cv);
+        long insert = db.insert("carr_prod",null,cv);
 
         return insert != -1;
     }

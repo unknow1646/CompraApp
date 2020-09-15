@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,14 +27,15 @@ public class BusquedaDeProductos extends AppCompatActivity {
         ti_buscar = findViewById(R.id.ti_ProductoBusqueda);
 
         dataBaseHelper = new DataBaseHelper(BusquedaDeProductos.this);
-        lista_productos = new ArrayAdapter<ModeloProducto>(BusquedaDeProductos.this, android.R.layout.simple_list_item_1,dataBaseHelper.getEveryoneBusqueda(ti_buscar.getText().toString()));
-        lv_busqueda.setAdapter(lista_productos);
+//        lista_productos = new ArrayAdapter<ModeloProducto>(BusquedaDeProductos.this, android.R.layout.simple_list_item_single_choice,dataBaseHelper.getEveryoneBusqueda(ti_buscar.getText().toString()));
+        lv_busqueda.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
+//        lv_busqueda.setAdapter(lista_productos);
 
         btn_buscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 dataBaseHelper = new DataBaseHelper(BusquedaDeProductos.this);
-                lista_productos = new ArrayAdapter<ModeloProducto>(BusquedaDeProductos.this, android.R.layout.simple_list_item_1,dataBaseHelper.getEveryoneBusqueda(ti_buscar.getText().toString()));
+                lista_productos = new ArrayAdapter<ModeloProducto>(BusquedaDeProductos.this, android.R.layout.simple_list_item_single_choice,dataBaseHelper.getEveryoneBusqueda(ti_buscar.getText().toString()));
                 lv_busqueda.setAdapter(lista_productos);
             }
         });
