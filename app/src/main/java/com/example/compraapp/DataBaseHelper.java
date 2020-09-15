@@ -42,9 +42,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     public boolean checkProducto(ModeloProducto modeloProducto){
+        //GetCount
+        boolean ret;
+        String queryString = "SELECT * FROM producto WHERE prod_codigo = "+Integer.toString(modeloProducto.getProd_codigo())+" AND ven_rut = "+Integer.toString(modeloProducto.getVen_rut());
         SQLiteDatabase db = this.getReadableDatabase();
-        return true;
+        Cursor cursor = db.rawQuery(queryString,null);
+        ret = cursor.getCount() <= 0;
 
+        cursor.close();
+        db.close();
+        return ret;
     }
 
     public boolean agregarProducto(ModeloProducto modeloProducto){
