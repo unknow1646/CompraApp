@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
-        android:id="@+id/listView"
+        android:id="@+id/lv_EditarEliminar"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -46,7 +46,7 @@
         app:layout_constraintBottom_toTopOf="@+id/btn_Editar_Volver"
         app:layout_constraintEnd_toStartOf="@+id/btn_EliminarProducto"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/listView" />
+        app:layout_constraintTop_toBottomOf="@+id/lv_EditarEliminar" />
 
     <Button
         android:id="@+id/btn_EliminarProducto"
@@ -60,7 +60,7 @@
         android:text="@string/EliminarProducto"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btn_EditarProducto"
-        app:layout_constraintTop_toBottomOf="@+id/listView" />
+        app:layout_constraintTop_toBottomOf="@+id/lv_EditarEliminar" />
 
     <Button
         android:id="@+id/btn_Editar_Volver"
