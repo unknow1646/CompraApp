@@ -70,20 +70,59 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
 
+    public boolean instanciaCompra(ModeloCompra modeloCompra){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("com_autoincrementable", modeloCompra.getCom_id());
+        cv.put("cli_rut",modeloCompra.getCli_rut());
+        cv.put("ven_rut",modeloCompra.getVen_rut());
+        cv.put("com_hora_entrega",modeloCompra.getCom_hora_entrega());
+        cv.put("com_fecha_entrega",modeloCompra.getCom_fecha_entrega());
+
+
+        long insert = db.insert("compra",null,cv);
+        return insert != -1;
+    }
+
+    public List<ModeloProducto> getProductos(int rut){
+        List<ModeloProducto> returnList = new ArrayList<>();
+        String queryString = "SELECT * FROM producto WHERE ven_rut = "+Integer.toString(rut);
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString,null);
+        if(cursor.moveToFirst()){
+            do{
+                int codigo = cursor.getInt(0);
+                int rut_v = cursor.getInt(1);
+                String nombre = cursor.getString(2);
+                int stock = cursor.getInt(3);
+                String tipo = cursor.getString(4);
+                int precio = cursor.getInt(5);
+                ModeloProducto modeloProducto = new ModeloProducto(codigo, rut_v, nombre, stock, tipo, precio);
+                returnList.add(modeloProducto);
+            }while(cursor.moveToNext());
+        }
+        else{
+            //FAIL
+        }
+        cursor.close();
+        db.close();
+        return returnList;
+    }
+
     public List<ModeloCompra> getEveryoneCompra(){
         List<ModeloCompra> returnList = new ArrayList<>();
-        String queryString = "SELECT * FROM compra " ;
+        String queryString = "SELECT * FROM compra";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString, null);
         if(cursor.moveToFirst()){
             //loop results
             do{
-
-                int compraclirut = cursor.getInt(0);
-                int compravenrut = cursor.getInt(1);
-                int comprahoranetrega=cursor.getInt(2);
-                int comprafechaentrega= cursor.getInt(3);
-                ModeloCompra newmodelocompra = new ModeloCompra(compraclirut,compravenrut,comprahoranetrega,comprafechaentrega);
+                int compraid = cursor.getInt(0);
+                int compraclirut = cursor.getInt(1);
+                int compravenrut = cursor.getInt(2);
+                int comprahoranetrega=cursor.getInt(3);
+                int comprafechaentrega= cursor.getInt(4);
+                ModeloCompra newmodelocompra = new ModeloCompra(compraid,compraclirut,compravenrut,comprahoranetrega,comprafechaentrega);
                 returnList.add(newmodelocompra);
             }while(cursor.moveToNext());
         }
