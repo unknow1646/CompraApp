@@ -7,7 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class MantencionDeProductos extends AppCompatActivity {
+public class MantencionDeProductos extends AppCompatActivity implements View.OnClickListener {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,23 +16,26 @@ public class MantencionDeProductos extends AppCompatActivity {
         setContentView(R.layout.activity_mantencion_de_productos);
 
         Button btnRegistrar = findViewById(R.id.btn_RegistrarProducto);
-        Button btnEditarEliminar = findViewById(R.id.btn_EditarEliminarProducto);
+        Button btneditar = findViewById(R.id.btn_EditarEliminarProducto);
+        btnRegistrar.setOnClickListener(this);
+        btneditar.setOnClickListener(this);
+    }
 
 
-        btnRegistrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MantencionDeProductos.this, RegistrarProducto.class);
-                startActivity(i);
-            }
-        });
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btn_RegistrarProducto:
+                Intent registrar = new Intent(MantencionDeProductos.this, RegistrarProducto.class);
+                startActivity(registrar);
+                break;
 
-        btnEditarEliminar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(MantencionDeProductos.this, EditarEliminarProducto.class);
-                startActivity(i);
-            }
-        });
+            case R.id.btn_EditarEliminarProducto:
+                Intent editar = new Intent(MantencionDeProductos.this, EditarEliminarProducto.class);
+                startActivity(editar);
+                break;
+
+        }
+
     }
 }
