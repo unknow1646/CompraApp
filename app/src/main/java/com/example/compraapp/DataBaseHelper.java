@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.graphics.ColorSpace;
 import android.view.Display;
 import android.widget.Toast;
 
@@ -304,6 +305,15 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
 
         String queryString = "UPDATE producto SET prod_codigo = "+modeloProducto_new.getProd_codigo()+",  prod_nombre=\""+ modeloProducto_new.getProd_nombre()+ "\", prod_stock="+modeloProducto_new.getProd_stock()+", prod_precio="+modeloProducto_new.getProd_precio()+",prod_tipo = \""+modeloProducto_new.getProd_tipo()+"\" WHERE prod_codigo="+code+ " AND ven_rut ="+rut;
+
+        db.execSQL(queryString);
+
+    }
+
+    public void deleteProducto(ModeloProducto modeloProducto){
+        SQLiteDatabase db = getWritableDatabase();
+
+        String queryString = "DELETE FROM producto WHERE ven_rut = "+modeloProducto.getVen_rut()+" AND prod_codigo = "+modeloProducto.getProd_codigo();
 
         db.execSQL(queryString);
 

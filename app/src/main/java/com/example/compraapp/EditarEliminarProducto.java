@@ -1,10 +1,12 @@
 package com.example.compraapp;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.ColorSpace;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
@@ -15,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.PopupWindow;
+import android.widget.Toast;
 
 public class EditarEliminarProducto extends AppCompatActivity {
     ListView lv_Editar;
@@ -63,7 +66,19 @@ public class EditarEliminarProducto extends AppCompatActivity {
         btn_eliminar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ModeloProducto modeloProducto;
+                try{
+                    modeloProducto = (ModeloProducto) lv_Editar.getItemAtPosition(lv_Editar.getCheckedItemPosition());
+                    dataBaseHelper = new DataBaseHelper(EditarEliminarProducto.this);
+                    dataBaseHelper.deleteProducto(modeloProducto);
 
+                    lista_productos = new ArrayAdapter<ModeloProducto>(EditarEliminarProducto.this, android.R.layout.simple_list_item_single_choice, dataBaseHelper.getProductos(194398239));
+                    lv_Editar.setAdapter(lista_productos);
+                }
+                catch(Exception e){
+                    Toast.makeText(EditarEliminarProducto.this, "No hay producto seleccionado",Toast.LENGTH_LONG).show();
+
+                }
             }
         });
 
