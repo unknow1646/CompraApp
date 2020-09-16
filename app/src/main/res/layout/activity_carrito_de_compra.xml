@@ -10,23 +10,13 @@
         android:id="@+id/btn_EliminarDelCarrito"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/Eliminar_del_carrito"
         app:layout_constraintBottom_toTopOf="@+id/btn_Volver"
-        app:layout_constraintEnd_toStartOf="@+id/btn_ConfirmarCompra"
+        app:layout_constraintEnd_toStartOf="@+id/btn_Confirmar_Compra"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lv_CarritoDeCompras"
-        app:layout_constraintVertical_bias="0.91" />
-
-    <Button
-        android:id="@+id/btn_ConfirmarCompra"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/Confirmar_compra"
-        app:layout_constraintBottom_toTopOf="@+id/btn_Volver"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/btn_EliminarDelCarrito"
         app:layout_constraintTop_toBottomOf="@+id/lv_CarritoDeCompras"
         app:layout_constraintVertical_bias="0.91" />
 
@@ -64,5 +54,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_Confirmar_Compra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="@string/Confirmar_compra"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_EliminarDelCarrito"
+        app:layout_constraintTop_toBottomOf="@+id/lv_CarritoDeCompras" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
