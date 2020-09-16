@@ -60,5 +60,12 @@ public class EditarEliminarProducto extends AppCompatActivity {
             }
         });
 
+        btn_eliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
     }
 }

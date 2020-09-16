@@ -302,15 +302,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     public void updateProductoEdit(int rut,int code, ModeloProducto modeloProducto_new){
         SQLiteDatabase db = getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put("prod_codigo",modeloProducto_new.getProd_codigo());
-        cv.put("prod_nombre",modeloProducto_new.getProd_nombre());
-        cv.put("prod_stock",modeloProducto_new.getProd_stock());
-        cv.put("prod_tipo",modeloProducto_new.getProd_tipo());
-        cv.put("prod_precio",modeloProducto_new.getProd_precio());
 
-        db.update("producto",cv,"prod_codigo ="+code+" AND ven_rut = "+rut,null);
+        String queryString = "UPDATE producto SET prod_codigo = "+modeloProducto_new.getProd_codigo()+",  prod_nombre=\""+ modeloProducto_new.getProd_nombre()+ "\", prod_stock="+modeloProducto_new.getProd_stock()+", prod_precio="+modeloProducto_new.getProd_precio()+",prod_tipo = \""+modeloProducto_new.getProd_tipo()+"\" WHERE prod_codigo="+code+ " AND ven_rut ="+rut;
 
+        db.execSQL(queryString);
 
     }
 
