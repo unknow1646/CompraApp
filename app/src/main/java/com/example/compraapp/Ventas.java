@@ -26,9 +26,6 @@ public class Ventas extends AppCompatActivity {
 
         dataBaseHelper = new DataBaseHelper(Ventas.this);
 
-        modeloCompra = new ModeloCompra(-1,123,123,123,123);
-        Toast.makeText(Ventas.this, "Instancia OK = "+dataBaseHelper.instanciaCompra(modeloCompra),Toast.LENGTH_SHORT).show();
-
         lista_ventas = new ArrayAdapter<ModeloCompra>(Ventas.this, android.R.layout.simple_list_item_1, dataBaseHelper.getEveryoneCompra());
         lv_ventas.setAdapter(lista_ventas);
 

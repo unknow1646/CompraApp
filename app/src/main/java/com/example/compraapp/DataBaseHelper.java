@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -25,7 +26,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         String crearTablaProducto = "CREATE TABLE producto(prod_codigo INTEGER PRIMARY KEY, ven_rut INTEGER,  prod_nombre TEXT, prod_stock INTEGER, prod_tipo TEXT, prod_precio INTEGER, FOREIGN KEY  (ven_rut) REFERENCES vendedor(ven_rut))";
         String crearTablaCompra = "CREATE Table compra(cli_rut INTEGER, ven_rut INTEGER, com_autoincrementable INTEGER PRIMARY KEY AUTOINCREMENT, com_hora_entrega INTEGER, com_fecha_entrega INTEGER, FOREIGN KEY  (cli_rut) REFERENCES  cliente (cli_rut), FOREIGN KEY  (ven_rut) REFERENCES  vendedor (ven_rut))";
         String crearTablaCarrito = "CREATE TABLE carrito(cli_rut INTEGER, com_autoincrementable INTEGER PRIMARY KEY, carr_cant_prod INTEGER, carr_precio_total INTEGER, FOREIGN KEY (cli_rut) REFERENCES cliente (cli_rut))";
-        String crearTablaCarrProd = "CREATE TABLE carr_prod(cli_rut INTEGER, ven_rut INTEGER, prod_nombre TEXT, com_autoincrementable INTEGER PRIMARY KEY, FOREIGN KEY (cli_rut) REFERENCES cliente (cli_rut), FOREIGN KEY (ven_rut) REFERENCES vendedor (ven_rut), FOREIGN KEY (prod_nombre) REFERENCES producto (prod_nombre))";
+        String crearTablaCarrProd = "CREATE TABLE carr_prod(cli_rut INTEGER, ven_rut INTEGER, prod_codigo INTEGER PRIMARY KEY, com_autoincrementable INTEGER PRIMARY KEY, FOREIGN KEY (cli_rut) REFERENCES cliente (cli_rut), FOREIGN KEY (ven_rut) REFERENCES vendedor (ven_rut), FOREIGN KEY (prod_codigo) REFERENCES producto (prod_codigo))";
 
         db.execSQL(crearTablaPersona);
         db.execSQL(crearTablaCliente);
@@ -120,9 +121,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         if(cursor.moveToFirst()){
             //loop results
             do{
-                int compraid = cursor.getInt(0);
-                int compraclirut = cursor.getInt(1);
-                int compravenrut = cursor.getInt(2);
+                int compraid = cursor.getInt(3);
+                int compraclirut = cursor.getInt(0);
+                int compravenrut = cursor.getInt(1);
                 int comprahoranetrega=cursor.getInt(3);
                 int comprafechaentrega= cursor.getInt(4);
                 ModeloCompra newmodelocompra = new ModeloCompra(compraid,compraclirut,compravenrut,comprahoranetrega,comprafechaentrega);
@@ -172,19 +173,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
 
-    /*
-    public boolean deleteCarrito(ModeloCarritoProducto modeloCarritoProducto){
+    public boolean deleteAllCarrito(int rut){
         SQLiteDatabase db = this.getWritableDatabase();
-        String queryString = "DELETE FROM "+carr_prod+" WHERE "+COLUMN_ID+" = "+modeloCarritoProducto.get();
-        Cursor cursor = db.rawQuery(queryString, null);
-        if(cursor.moveToFirst()){
-            return true;
-        }
-        else{
-            return false;
-        }
+        int ret = db.delete("carr_prod", "cli_rut", new String[]{Integer.toString(rut)});
+        return ret == 1;
     }
-*/
 
 
     //QUERY productos para agregar al carrito
@@ -217,15 +210,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     //INSERT producto a carr_com
-    public boolean agregarProductoAlCarro(ModeloProducto modeloProducto){
+    public boolean agregarProductoAlCarro(ModeloProducto modeloProducto, int rut){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv =new ContentValues();
         cv.put("prod_codigo",modeloProducto.getProd_codigo());
         cv.put("ven_rut",modeloProducto.getVen_rut());
-        cv.put("prod_nombre",modeloProducto.getProd_nombre());
-        cv.put("prod_stock",modeloProducto.getProd_stock());
-        cv.put("prod_tipo",modeloProducto.getProd_tipo());
-        cv.put("prod_precio",modeloProducto.getProd_precio());
+        cv.put("cli_rut",rut);
 
         long insert = db.insert("carr_prod",null,cv);
 
@@ -234,21 +224,23 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
 
 
-    public List<ModeloCarritoProducto> getEveryoneProductos() {
-        List<ModeloCarritoProducto> returnList = new ArrayList<>();
-        String queryString = "SELECT * FROM carr_prod";
+    public List<ModeloProducto> getProductosCarrito(int rut) {
+        List<ModeloProducto> returnList = new ArrayList<>();
+        String queryString = "SELECT producto.* FROM carr_prod,producto where cli_rut = "+rut+" and carr_prod.prod_codigo = producto.prod_codigo";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString, null);
         if (cursor.moveToFirst()) {
             //loop results
             do {
+                int codigo = cursor.getInt(0);
+                int vRut = cursor.getInt(1);
+                String nombre = cursor.getString(2);
+                int stock = cursor.getInt(3);
+                String tipo = cursor.getString(4);
+                int precio = cursor.getInt(5);
 
-                int carrproclirut = cursor.getInt(0);
-                int carrprovenrut = cursor.getInt(1);
-                String nombreprod = cursor.getString(2);
-                int id = cursor.getInt(3);
-                ModeloCarritoProducto newmodelocarritoproducto = new ModeloCarritoProducto(carrproclirut, carrprovenrut, nombreprod, id);
-                returnList.add(newmodelocarritoproducto);
+                ModeloProducto modeloProducto = new ModeloProducto(codigo,vRut,nombre,stock,tipo,precio);
+                returnList.add(modeloProducto);
             } while (cursor.moveToNext());
         } else {
             //FAIL
@@ -258,35 +250,36 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.close();
         return returnList;
     }
-/*
-    public boolean deleteProducto(ModeloCarritoProducto modelocarritoproducto){
-        SQLiteDatabase db = this.getWritableDatabase();
-        String queryString = "DELETE FROM carr_prod WHERE com_autoincrementable =" + idseleccionada;
-        Cursor cursor = db.rawQuery(queryString, null);
-        if(cursor.moveToFirst()){
-            return true;
-        }
-        else{
-            return false;
-        }
 
-*/
+    public void deleteProductoCarrito(int rut, int cod_producto) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String queryString = "DELETE FROM carr_prod WHERE cli_rut = "+ Integer.toString(rut)+" AND prod_codigo = "+Integer.toString(cod_producto);
+        try {
+            db.execSQL(queryString);
+        }
+        catch (Exception e){
+            //Toast.makeText(null, "Error eliminando producto",Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
     public boolean confirmcompra(ModeloCarritoProducto modelocarritoproducto){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv =new ContentValues();
         cv.put("cli_rut",modelocarritoproducto.getCli_rut());
         cv.put("ven_rut",modelocarritoproducto.getVen_rut());
-        cv.put("prod_nombre",modelocarritoproducto.getProd_nombre());
+ //       cv.put("prod_nombre",modelocarritoproducto.getProd_nombre());
 
         long insert = db.insert("compra",null,cv);
 
         return insert != -1;
     }
 
-
-
-
+    public void deleteProducto(int ven_rut, int prod_codigo){
+        SQLiteDatabase db = getWritableDatabase();
+        String queryString = "DELETE FROM producto WHERE prod_codigo ="+prod_codigo+" AND ven_rut = "+ven_rut;
+        db.execSQL(queryString);
+    }
 
 }
 
