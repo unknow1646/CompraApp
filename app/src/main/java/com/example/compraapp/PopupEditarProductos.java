@@ -76,8 +76,19 @@ public class PopupEditarProductos extends AppCompatActivity {
                 modeloProducto = new ModeloProducto(Integer.parseInt(ti_codigo.getText().toString()), 194398239,ti_nombre.getText().toString(),Integer.parseInt(ti_stock.getText().toString()),ti_tipo.getText().toString(), Integer.parseInt(ti_stock.getText().toString()));
                 Toast.makeText(PopupEditarProductos.this,modeloProducto.toString(),Toast.LENGTH_LONG).show();
 
-                dataBaseHelper.updateProductoEdit(193498239,codigoProd, modeloProducto);
+                dataBaseHelper.updateProductoEdit(194398239,codigoProd, modeloProducto);
 
+                Intent i = new Intent(PopupEditarProductos.this, EditarEliminarProducto.class);
+                startActivity(i);
+
+            }
+        });
+
+        btn_cancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(PopupEditarProductos.this, EditarEliminarProducto.class);
+                startActivity(i);
             }
         });
 
