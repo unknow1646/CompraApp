@@ -284,7 +284,21 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return insert != -1;
     }
 
-
+    public int getcodigo(int rut) {
+        int cod=0;
+        String queryString = "SELECT com_autoincrementable FROM compra WHERE cli_rut="+rut +"AND com_hora_entrega = 0 AND com_fecha_entrega = 0";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(queryString, null);
+        if (cursor.moveToFirst()) {
+            cod=cursor.getInt(0);
+        }
+        else{
+            return -1;
+        }
+        cursor.close();
+        db.close();
+        return cod;
+    }
 
 
 
