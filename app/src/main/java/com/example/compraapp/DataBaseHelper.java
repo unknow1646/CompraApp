@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.view.Display;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -298,6 +299,20 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return cod;
     }
 
+
+    public void updateProductoEdit(int rut,int code, ModeloProducto modeloProducto_new){
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("prod_codigo",modeloProducto_new.getProd_codigo());
+        cv.put("prod_nombre",modeloProducto_new.getProd_nombre());
+        cv.put("prod_stock",modeloProducto_new.getProd_stock());
+        cv.put("prod_tipo",modeloProducto_new.getProd_tipo());
+        cv.put("prod_precio",modeloProducto_new.getProd_precio());
+
+        db.update("producto",cv,"prod_codigo ="+code+" AND ven_rut = "+rut,null);
+
+
+    }
 
 }
 

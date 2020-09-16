@@ -2,10 +2,19 @@ package com.example.compraapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.graphics.ColorSpace;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.PopupMenu;
+import android.widget.PopupWindow;
 
 public class EditarEliminarProducto extends AppCompatActivity {
     ListView lv_Editar;
@@ -21,9 +30,35 @@ public class EditarEliminarProducto extends AppCompatActivity {
         btn_editar = findViewById(R.id.btn_EditarProducto);
         btn_eliminar = findViewById(R.id.btn_EliminarProducto);
 
+        lv_Editar.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
+
         dataBaseHelper = new DataBaseHelper(EditarEliminarProducto.this);
-        lista_productos = new ArrayAdapter<ModeloProducto>(EditarEliminarProducto.this, android.R.layout.simple_list_item_checked, dataBaseHelper.getProductos(194398239));
+        lista_productos = new ArrayAdapter<ModeloProducto>(EditarEliminarProducto.this, android.R.layout.simple_list_item_single_choice, dataBaseHelper.getProductos(194398239));
         lv_Editar.setAdapter(lista_productos);
+
+
+        btn_editar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ModeloProducto modeloProducto;
+                Intent intent = new Intent(EditarEliminarProducto.this, PopupEditarProductos.class);
+
+                modeloProducto = (ModeloProducto) lv_Editar.getItemAtPosition(lv_Editar.getCheckedItemPosition());
+
+
+                intent.putExtra("prod_codigo", modeloProducto.getProd_codigo());
+                intent.putExtra("ven_rut",modeloProducto.getVen_rut());
+                intent.putExtra("prod_nombre", modeloProducto.getProd_nombre());
+                intent.putExtra("prod_stock", modeloProducto.getProd_stock());
+                intent.putExtra("prod_tipo", modeloProducto.getProd_tipo());
+                intent.putExtra("prod_precio",modeloProducto.getProd_precio());
+
+                startActivity(intent);
+
+
+
+            }
+        });
 
     }
 }
