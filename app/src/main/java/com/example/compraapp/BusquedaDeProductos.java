@@ -15,7 +15,7 @@ public class BusquedaDeProductos extends AppCompatActivity {
     ListView lv_busqueda;
     Button btn_buscar, btn_agregar;
     EditText ti_buscar;
-    ArrayAdapter lista_productos;
+    ProductoListAdapter lista_productos;
     DataBaseHelper dataBaseHelper;
 
     @Override
@@ -36,7 +36,7 @@ public class BusquedaDeProductos extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dataBaseHelper = new DataBaseHelper(BusquedaDeProductos.this);
-                lista_productos = new ArrayAdapter<ModeloProducto>(BusquedaDeProductos.this, android.R.layout.simple_list_item_single_choice,dataBaseHelper.getEveryoneBusqueda(ti_buscar.getText().toString()));
+                lista_productos = new ProductoListAdapter(BusquedaDeProductos.this, R.layout.layout_productos_busqueda, dataBaseHelper.getEveryoneBusqueda(ti_buscar.getText().toString()));
                 lv_busqueda.setAdapter(lista_productos);
             }
         });
