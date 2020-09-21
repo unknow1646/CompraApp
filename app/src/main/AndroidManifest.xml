@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".VentaConcretada"></activity>
+        <activity android:name=".Login"></activity>
+        <activity android:name=".VentaConcretada" />
         <activity android:name=".EditarEliminarProducto" />
         <activity android:name=".RegistrarProducto" />
         <activity android:name=".Ventas" />
@@ -24,7 +25,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PopupEditarProductos"  android:theme="@style/AppTheme.popuptheme"/>
+        <activity
+            android:name=".PopupEditarProductos"
+            android:theme="@style/AppTheme.popuptheme" />
     </application>
 
 </manifest>

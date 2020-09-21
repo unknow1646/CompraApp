@@ -43,4 +43,7 @@
     <string name="txtCarritoDeCompras">Carrito de compras</string>
     <string name="ProdCodigo">Código de barra</string>
     <string name="btnBuscar">Buscar</string>
+    <string name="txtusuario">Usuario</string>
+    <string name="txtcontraseña">Contraseña</string>
+    <string name="iniciosesion">Inicio sesión</string>
 </resources>
