@@ -46,4 +46,11 @@
     <string name="txtusuario">Usuario</string>
     <string name="txtcontraseña">Contraseña</string>
     <string name="iniciosesion">Inicio sesión</string>
+    <string name="rutusuario">Rut</string>
+    <string name="nombreusuario">Nombre</string>
+    <string name="apellidousuario">Apellido</string>
+    <string name="telefonousuario">Telefono</string>
+    <string name="RegistroUsuario">Registro</string>
+    <string name="btn_registro">Registrar</string>
+    <string name="btn_cancelar">Cancelar</string>
 </resources>
