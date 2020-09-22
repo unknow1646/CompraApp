@@ -3,6 +3,7 @@ package com.example.compraapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,6 +37,8 @@ public class RegistrarUsuario extends AppCompatActivity {
         sw_vendedor = findViewById(R.id.sw_vendedor);
         btn_confirmar = findViewById(R.id.btn_reg_registrar);
         btn_cancelar = findViewById(R.id.bt_reg_cancelar);
+        final DataBaseHelper dataBaseHelper;
+        dataBaseHelper = new DataBaseHelper(RegistrarUsuario.this);
 
         btn_cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,13 +64,20 @@ public class RegistrarUsuario extends AppCompatActivity {
                 }
 
                 else{
-                    if(vendedor == false){
-                        //registrar cliente
+                    if(dataBaseHelper.checkrut(Integer.parseInt(rut)) == false){
+                        Toast.makeText(RegistrarUsuario.this,"Este rut ya se encuentra registrado", Toast.LENGTH_SHORT).show();
+                        return;
                     }
-                    else{
-                        //registrar cliente
-                        Toast.makeText(RegistrarUsuario.this,"Registrar vendedor",Toast.LENGTH_SHORT).show();
+                    else {
+                        ModeloPersona modeloPersona = new ModeloPersona(Integer.parseInt(rut), nombre, apellido, Integer.parseInt(telefono));
+                        dataBaseHelper.insertarPersona(modeloPersona,password);
+                        if (vendedor == true) {
+                            dataBaseHelper.insertarVendedor(Integer.parseInt(rut), direccion);
+                        } else {
+                            dataBaseHelper.insertarCliente(Integer.parseInt(rut), direccion);
+                            Toast.makeText(RegistrarUsuario.this, "Registrar vendedor", Toast.LENGTH_SHORT).show();
 
+                        }
                     }
 
                 }

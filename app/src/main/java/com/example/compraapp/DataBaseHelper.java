@@ -19,13 +19,13 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String crearTablaPersona = "CREATE TABLE persona(per_rut INTEGER PRIMARY KEY,per_nombre TEXT,per_apellido TEXT,per_telefono INTEGER)";
+        String crearTablaPersona = "CREATE TABLE persona(per_rut INTEGER PRIMARY KEY,per_password TEXT,per_nombre TEXT,per_apellido TEXT,per_telefono INTEGER)";
         String crearTablaCliente = "CREATE TABLE cliente(cli_rut INTEGER, cli_direccion TEXT, FOREIGN KEY (cli_rut) REFERENCES persona (per_rut))";
-        String crearTablaVendedor = "CREATE TABLE vendedor(ven_rut INTEGER, ven_tienda TEXT, ven_direccion TEXT, FOREIGN KEY (ven_rut) REFERENCES persona (per_rut))";
+        String crearTablaVendedor = "CREATE TABLE vendedor(ven_rut INTEGER, ven_direccion TEXT, FOREIGN KEY (ven_rut) REFERENCES persona (per_rut))";
         String crearTablaProducto = "CREATE TABLE producto(prod_codigo INTEGER PRIMARY KEY, ven_rut INTEGER,  prod_nombre TEXT, prod_stock INTEGER, prod_tipo TEXT, prod_precio INTEGER, FOREIGN KEY  (ven_rut) REFERENCES vendedor(ven_rut))";
-        String crearTablaCompra = "CREATE Table compra(cli_rut INTEGER, ven_rut INTEGER, com_autoincrementable INTEGER PRIMARY KEY AUTOINCREMENT, com_hora_entrega INTEGER, com_fecha_entrega INTEGER, FOREIGN KEY  (cli_rut) REFERENCES  cliente (cli_rut), FOREIGN KEY  (ven_rut) REFERENCES  vendedor (ven_rut))";
+        String crearTablaCompra = "CREATE TABLE compra(cli_rut INTEGER, ven_rut INTEGER, com_id INTEGER PRIMARY KEY AUTOINCREMENT, com_hora_entrega INTEGER, com_fecha_entrega INTEGER, FOREIGN KEY  (cli_rut) REFERENCES  cliente (cli_rut), FOREIGN KEY  (ven_rut) REFERENCES  vendedor (ven_rut))";
         String crearTablaCarrito = "CREATE TABLE carrito(cli_rut INTEGER, com_autoincrementable INTEGER PRIMARY KEY, carr_cant_prod INTEGER, carr_precio_total INTEGER, FOREIGN KEY (cli_rut) REFERENCES cliente (cli_rut))";
-        String crearTablaCarrProd = "CREATE TABLE carr_prod(cli_rut INTEGER, ven_rut INTEGER, prod_codigo INTEGER PRIMARY KEY, com_autoincrementable INTEGER PRIMARY KEY, FOREIGN KEY (cli_rut) REFERENCES cliente (cli_rut), FOREIGN KEY (ven_rut) REFERENCES vendedor (ven_rut), FOREIGN KEY (prod_codigo) REFERENCES producto (prod_codigo))";
+        String crearTablaCarrProd = "CREATE TABLE carr_prod(cli_rut INTEGER, ven_rut INTEGER, prod_codigo INTEGER, FOREIGN KEY (cli_rut) REFERENCES cliente (cli_rut), FOREIGN KEY (ven_rut) REFERENCES vendedor (ven_rut), FOREIGN KEY (prod_codigo) REFERENCES producto (prod_codigo))";
 
         db.execSQL(crearTablaPersona);
         db.execSQL(crearTablaCliente);
@@ -317,14 +317,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
     /// ESTO ES PARA LOGIN Y REGISTER--------------------------------------------
     //INSERT EN DATABASE
-    public boolean insertar(int rut, String nombre, String apellido, int telefono, String tipoUusario){
+    public boolean insertarPersona(ModeloPersona modeloPersona, String password){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-        cv.put("per_rut", rut);
-        cv.put("per_nombre", nombre);
-        cv.put("per_apellido", apellido);
-        cv.put("per_telefono", telefono);
-        //FALTA PONER ALGO COMO EL TIPO DE USUARIO Y CONTRASEÑA
+        cv.put("per_rut", modeloPersona.getper_rut());
+        cv.put("per_nombre", modeloPersona.getper_nombre());
+        cv.put("per_apellido", modeloPersona.getper_Apellido());
+        cv.put("per_telefono", modeloPersona.getper_Apellido());
+        cv.put("per_password", password);
         long ins = db.insert("persona", null, cv);
         if (ins ==-1) {
             return false;
@@ -333,10 +333,26 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    public void insertarCliente(int rut, String direccion){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("cli_rut",rut);
+        cv.put("cli_direccion",direccion);
+        db.insert("cliente",null,cv);
+    }
+
+    public void insertarVendedor(int rut, String direccion){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("ven_rut", rut);
+        cv.put("ven_direccion", direccion);
+        db.insert("vendedor", null, cv);
+    }
+
     //VERIFICA SI EL RUT YA ESTA EN EL SISTEMA
     public boolean checkrut(int rut){ //register
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM persona where per_rut=?", new String[]{String.valueOf(rut)});
+        Cursor cursor = db.rawQuery("SELECT * FROM persona where per_rut="+rut, null);
         if (cursor.getCount()>0){
             return false;
         }else{
