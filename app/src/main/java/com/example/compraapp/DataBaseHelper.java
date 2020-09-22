@@ -315,7 +315,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL(queryString);
 
     }
-                                  /// ESTO ES PARA LOGIN Y REGISTER
+    /// ESTO ES PARA LOGIN Y REGISTER--------------------------------------------
     //INSERT EN DATABASE
     public boolean insertar(int rut, String nombre, String apellido, int telefono, String tipoUusario){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -334,7 +334,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     //VERIFICA SI EL RUT YA ESTA EN EL SISTEMA
-    public boolean checkrut(int rut){
+    public boolean checkrut(int rut){ //register
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM persona where per_rut=?", new String[]{String.valueOf(rut)});
         if (cursor.getCount()>0){
@@ -344,9 +344,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public boolean checkrutypassword(int rut, String password){
+    public boolean checkrutypassword(int rut, String password){ //login
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM persona where per_rut=? and per_password=?", new String[]{String.valueOf(rut),password});
+        Cursor cursor = db.rawQuery("SELECT * FROM persona where per_rut="+rut+" and per_password="+password,null);
+
         if (cursor.getCount()>0){
             return false;
         }else{

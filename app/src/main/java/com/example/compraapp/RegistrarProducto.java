@@ -38,37 +38,37 @@ public class RegistrarProducto extends AppCompatActivity {
                     Toast.makeText(RegistrarProducto.this,"Código de producto vacío",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(prod_nombre.getText().toString().matches("")){
+                else if(prod_nombre.getText().toString().matches("")){
                     Toast.makeText(RegistrarProducto.this,"Nombre de producto vacío",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(prod_stock.getText().toString().matches("")){
+                else if(prod_stock.getText().toString().matches("")){
                     Toast.makeText(RegistrarProducto.this,"Stock de producto vacío",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(prod_tipo.getText().toString().matches("")){
+                else if(prod_tipo.getText().toString().matches("")){
                     Toast.makeText(RegistrarProducto.this,"Tipo de producto vacío",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(prod_precio.getText().toString().matches("")){
+                else if(prod_precio.getText().toString().matches("")){
                     Toast.makeText(RegistrarProducto.this,"Precio de producto vacío",Toast.LENGTH_SHORT).show();
                     return;
                 }
+                else {  //TEST-------
+                    modeloProducto = new ModeloProducto(Integer.parseInt(prod_codigo.getText().toString()), 194398239, prod_nombre.getText().toString(), Integer.parseInt(prod_stock.getText().toString()), prod_tipo.getText().toString(), Integer.parseInt(prod_precio.getText().toString()));
 
-                modeloProducto = new ModeloProducto(Integer.parseInt(prod_codigo.getText().toString()), 194398239, prod_nombre.getText().toString(),Integer.parseInt(prod_stock.getText().toString()),prod_tipo.getText().toString(),Integer.parseInt(prod_precio.getText().toString()));
-
-                dataBaseHelper = new DataBaseHelper(RegistrarProducto.this);
-                if(dataBaseHelper.checkProducto(modeloProducto)==false){
-                    Toast.makeText(RegistrarProducto.this, "Este producto ya existe", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    boolean success = dataBaseHelper.agregarProducto(modeloProducto);
-                    Toast.makeText(RegistrarProducto.this, "Producto registrado con éxito", Toast.LENGTH_SHORT).show();
-                    prod_codigo.setText("");
-                    prod_nombre.setText("");
-                    prod_precio.setText("");
-                    prod_stock.setText("");
-                    prod_tipo.setText("");
+                    dataBaseHelper = new DataBaseHelper(RegistrarProducto.this);
+                    if (dataBaseHelper.checkProducto(modeloProducto) == false) {
+                        Toast.makeText(RegistrarProducto.this, "Este producto ya existe", Toast.LENGTH_SHORT).show();
+                    } else {
+                        boolean success = dataBaseHelper.agregarProducto(modeloProducto);
+                        Toast.makeText(RegistrarProducto.this, "Producto registrado con éxito", Toast.LENGTH_SHORT).show();
+                        prod_codigo.setText("");
+                        prod_nombre.setText("");
+                        prod_precio.setText("");
+                        prod_stock.setText("");
+                        prod_tipo.setText("");
+                    }
                 }
             }
         });
