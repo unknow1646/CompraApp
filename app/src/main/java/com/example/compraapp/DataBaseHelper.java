@@ -323,7 +323,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cv.put("per_rut", modeloPersona.getper_rut());
         cv.put("per_nombre", modeloPersona.getper_nombre());
         cv.put("per_apellido", modeloPersona.getper_Apellido());
-        cv.put("per_telefono", modeloPersona.getper_Apellido());
+        cv.put("per_telefono", modeloPersona.getper_Telefono());
         cv.put("per_password", password);
         long ins = db.insert("persona", null, cv);
         if (ins ==-1) {
@@ -372,6 +372,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         else{
             return pass+" error " + password;
         }
+    }
+
+    public int checkUserType(int rut){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursorCli = db.rawQuery("SELECT * FROM cliente WHERE cli_rut = "+rut,null);
+        if(cursorCli.getCount() == 1){
+            return 0;
+        }
+        else return 1;
+        //0 = cliente | 1 = vendedor
     }
 
 }

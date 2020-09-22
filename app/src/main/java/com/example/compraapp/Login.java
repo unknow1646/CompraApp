@@ -61,8 +61,15 @@ public class Login extends AppCompatActivity {
                         return;
                     } else {
                         String login = dataBaseHelper.login(rut, pass);
-                        Toast.makeText(Login.this, "existe = " + login, Toast.LENGTH_SHORT).show();
-
+                        int usr_type = dataBaseHelper.checkUserType(rut);
+                        if(usr_type == 0){
+                            //vista Modulo Cliente
+                            Toast.makeText(Login.this,"Modulo Cliente", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            //vista modulo Vendedor
+                            Toast.makeText(Login.this,"Modulo Vendedor", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             }
