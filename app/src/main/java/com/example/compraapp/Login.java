@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +28,7 @@ public class Login extends AppCompatActivity {
         tiPassword = findViewById(R.id.ti_loginPassword);
         btnLogin = findViewById(R.id.btn_login);
         btnRegistrar = findViewById(R.id.btn_register);
+        final DataBaseHelper dataBaseHelper = new DataBaseHelper(Login.this);
 
 
 
@@ -50,10 +53,17 @@ public class Login extends AppCompatActivity {
                     return;
                 }
 
-                else{
+                else {
                     int rut = Integer.parseInt(tiRut.getText().toString());
                     String pass = tiPassword.getText().toString();
-                    Toast.makeText(Login.this,"Success",Toast.LENGTH_SHORT).show();
+                    if (dataBaseHelper.checkrut(rut)) {
+                        Toast.makeText(Login.this, "Rut o contraseña invalido", Toast.LENGTH_SHORT).show();
+                        return;
+                    } else {
+                        String login = dataBaseHelper.login(rut, pass);
+                        Toast.makeText(Login.this, "existe = " + login, Toast.LENGTH_SHORT).show();
+
+                    }
                 }
             }
         });

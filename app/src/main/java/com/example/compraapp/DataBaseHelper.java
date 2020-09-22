@@ -360,14 +360,17 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public boolean checkrutypassword(int rut, String password){ //login
+    public String login(int rut, String password){ //login
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM persona where per_rut="+rut+" and per_password="+password,null);
+        Cursor cursor = db.rawQuery("SELECT * FROM persona where per_rut="+rut,null);
+        cursor.moveToFirst();
+        String pass = (String) cursor.getString(cursor.getColumnIndex("per_password"));
 
-        if (cursor.getCount()>0){
-            return false;
-        }else{
-            return true;
+        if (password.matches(pass)){
+            return pass + " " + password;
+        }
+        else{
+            return pass+" error " + password;
         }
     }
 
