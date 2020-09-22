@@ -65,11 +65,13 @@ public class Login extends AppCompatActivity {
                             int usr_type = dataBaseHelper.checkUserType(rut);
                             if (usr_type == 0) {
                                 //vista Modulo Cliente
+                                ((DatosUsuario) Login.this.getApplication()).setRut_user(rut);
                                 Intent i = new Intent(Login.this, ModuloCliente.class);
                                 startActivity(i);
                                 //Toast.makeText(Login.this, "Modulo Cliente", Toast.LENGTH_SHORT).show();
                             } else {
                                 //vista modulo Vendedor
+                                ((DatosUsuario) Login.this.getApplication()).setRut_user(rut);
                                 Intent i = new Intent(Login.this, ModuloVendedor.class);
                                 startActivity(i);
                                 //Toast.makeText(Login.this, "Modulo Vendedor", Toast.LENGTH_SHORT).show();

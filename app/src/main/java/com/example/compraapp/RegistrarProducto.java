@@ -14,6 +14,7 @@ public class RegistrarProducto extends AppCompatActivity {
     EditText prod_codigo, prod_nombre, prod_stock, prod_tipo, prod_precio;
     Button btn_Registrar,btn_Volver;
     DataBaseHelper dataBaseHelper;
+    int rut;
 
 
     @Override
@@ -27,6 +28,8 @@ public class RegistrarProducto extends AppCompatActivity {
         prod_precio = findViewById(R.id.ti_PrecioProducto);
         btn_Registrar = findViewById(R.id.btn_RegistrarProducto);
         btn_Volver = findViewById(R.id.btn_RegistrarVolver);
+
+        rut = ((DatosUsuario) RegistrarProducto.this.getApplication()).getRut_user();
 
         dataBaseHelper = new DataBaseHelper(RegistrarProducto.this);
 
@@ -55,7 +58,7 @@ public class RegistrarProducto extends AppCompatActivity {
                     return;
                 }
                 else {  //TEST-------
-                    modeloProducto = new ModeloProducto(Integer.parseInt(prod_codigo.getText().toString()), 194398239, prod_nombre.getText().toString(), Integer.parseInt(prod_stock.getText().toString()), prod_tipo.getText().toString(), Integer.parseInt(prod_precio.getText().toString()));
+                    modeloProducto = new ModeloProducto(Integer.parseInt(prod_codigo.getText().toString()), rut, prod_nombre.getText().toString(), Integer.parseInt(prod_stock.getText().toString()), prod_tipo.getText().toString(), Integer.parseInt(prod_precio.getText().toString()));
 
                     dataBaseHelper = new DataBaseHelper(RegistrarProducto.this);
                     if (dataBaseHelper.checkProducto(modeloProducto) == false) {

@@ -25,6 +25,7 @@ public class EditarEliminarProducto extends AppCompatActivity {
     Button btn_editar, btn_eliminar, btn_volver;
     EditarListAdapter lista_productos;
     DataBaseHelper dataBaseHelper;
+    int rut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +38,12 @@ public class EditarEliminarProducto extends AppCompatActivity {
 
         lv_Editar.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
 
+        rut = ((DatosUsuario) EditarEliminarProducto.this.getApplication()).getRut_user();
+
+
+
         dataBaseHelper = new DataBaseHelper(EditarEliminarProducto.this);
-        lista_productos = new EditarListAdapter(EditarEliminarProducto.this, R.layout.layout_editar_productos, dataBaseHelper.getProductos(194398239));
+        lista_productos = new EditarListAdapter(EditarEliminarProducto.this, R.layout.layout_editar_productos, dataBaseHelper.getProductos(rut));
         lv_Editar.setAdapter(lista_productos);
 
 

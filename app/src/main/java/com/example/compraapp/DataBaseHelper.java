@@ -112,9 +112,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     //Query de las solicitudes de compra disponibles
-    public List<ModeloCompra> getEveryoneCompra(){
+    public List<ModeloCompra> getEveryoneCompra(int rut){
         List<ModeloCompra> returnList = new ArrayList<>();
-        String queryString = "SELECT * FROM compra";
+        String queryString = "SELECT * FROM compra WHERE ven_rut = "+rut;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString, null);
         if(cursor.moveToFirst()){
@@ -130,9 +130,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             }while(cursor.moveToNext());
         }
         else{
-            //FAIL
-        }
 
+        }
         //close everything
         cursor.close();
         db.close();

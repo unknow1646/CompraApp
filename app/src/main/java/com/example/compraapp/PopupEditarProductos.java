@@ -23,7 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class PopupEditarProductos extends AppCompatActivity {
     EditText ti_codigo, ti_nombre, ti_stock, ti_tipo, ti_precio;
     Button btn_confirmar, btn_cancelar;
-
+    int rut;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -41,6 +41,8 @@ public class PopupEditarProductos extends AppCompatActivity {
         ti_stock = findViewById(R.id.ti_newProdStock);
         ti_tipo = findViewById(R.id.ti_newProdTipo);
         ti_precio = findViewById(R.id.ti_newProdPrecio);
+
+        rut = ((DatosUsuario) PopupEditarProductos.this.getApplication()).getRut_user();
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -73,10 +75,11 @@ public class PopupEditarProductos extends AppCompatActivity {
                 dataBaseHelper = new DataBaseHelper(PopupEditarProductos.this);
 
 
-                modeloProducto = new ModeloProducto(Integer.parseInt(ti_codigo.getText().toString()), 194398239,ti_nombre.getText().toString(),Integer.parseInt(ti_stock.getText().toString()),ti_tipo.getText().toString(), Integer.parseInt(ti_stock.getText().toString()));
-                Toast.makeText(PopupEditarProductos.this,"Producto editado con éxito!",Toast.LENGTH_LONG).show();
+                modeloProducto = new ModeloProducto(Integer.parseInt(ti_codigo.getText().toString()), rut, ti_nombre.getText().toString(),Integer.parseInt(ti_stock.getText().toString()),ti_tipo.getText().toString(), Integer.parseInt(ti_stock.getText().toString()));
 
-                dataBaseHelper.updateProductoEdit(194398239,codigoProd, modeloProducto);
+                dataBaseHelper.updateProductoEdit(rut,codigoProd, modeloProducto);
+
+                Toast.makeText(PopupEditarProductos.this,"Producto editado con éxito!",Toast.LENGTH_LONG).show();
 
                 finish();
 
