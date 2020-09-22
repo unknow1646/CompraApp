@@ -53,4 +53,5 @@
     <string name="RegistroUsuario">Registro</string>
     <string name="btn_registro">Registrar</string>
     <string name="btn_cancelar">Cancelar</string>
+    <string name="iniciarsesion">Iniciar sesión</string>
 </resources>
