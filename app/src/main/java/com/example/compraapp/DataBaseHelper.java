@@ -5,9 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.ColorSpace;
-import android.view.Display;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
@@ -318,6 +315,46 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL(queryString);
 
     }
+                                  /// ESTO ES PARA LOGIN Y REGISTER
+    //INSERT EN DATABASE
+    public boolean insertar(int rut, String nombre, String apellido, int telefono, String tipoUusario){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("per_rut", rut);
+        cv.put("per_nombre", nombre);
+        cv.put("per_apellido", apellido);
+        cv.put("per_telefono", telefono);
+        //FALTA PONER ALGO COMO EL TIPO DE USUARIO Y CONTRASEÑA
+        long ins = db.insert("persona", null, cv);
+        if (ins ==-1) {
+            return false;
+        }else{
+            return  true;
+        }
+    }
+
+    //VERIFICA SI EL RUT YA ESTA EN EL SISTEMA
+    public boolean checkrut(int rut){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM persona where per_rut=?", new String[]{String.valueOf(rut)});
+        if (cursor.getCount()>0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    public boolean checkrutypassword(int rut, String password){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM persona where per_rut=? and per_password=?", new String[]{String.valueOf(rut),password});
+        if (cursor.getCount()>0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+
 
 }
 
