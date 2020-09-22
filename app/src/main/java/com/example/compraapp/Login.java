@@ -59,16 +59,25 @@ public class Login extends AppCompatActivity {
                     if (dataBaseHelper.checkrut(rut)) {
                         Toast.makeText(Login.this, "Rut o contraseña invalido", Toast.LENGTH_SHORT).show();
                         return;
-                    } else {
-                        String login = dataBaseHelper.login(rut, pass);
-                        int usr_type = dataBaseHelper.checkUserType(rut);
-                        if(usr_type == 0){
-                            //vista Modulo Cliente
-                            Toast.makeText(Login.this,"Modulo Cliente", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        if (dataBaseHelper.login(rut, pass)) {
+                            int usr_type = dataBaseHelper.checkUserType(rut);
+                            if (usr_type == 0) {
+                                //vista Modulo Cliente
+                                Intent i = new Intent(Login.this, ModuloCliente.class);
+                                startActivity(i);
+                                //Toast.makeText(Login.this, "Modulo Cliente", Toast.LENGTH_SHORT).show();
+                            } else {
+                                //vista modulo Vendedor
+                                Intent i = new Intent(Login.this, ModuloVendedor.class);
+                                startActivity(i);
+                                //Toast.makeText(Login.this, "Modulo Vendedor", Toast.LENGTH_SHORT).show();
+                            }
                         }
                         else{
-                            //vista modulo Vendedor
-                            Toast.makeText(Login.this,"Modulo Vendedor", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Login.this, "Rut o contraseña invalido", Toast.LENGTH_SHORT).show();
+                            return;
                         }
                     }
                 }
