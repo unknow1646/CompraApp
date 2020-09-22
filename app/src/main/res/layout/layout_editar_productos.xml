@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LL_editar"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:weightSum="100"
+
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="50"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/LE_nombre"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center_vertical"
+            android:text="prod_nombre"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:ignore="RtlCompat"
+            android:paddingStart="8dp"
+            />
+
+        <TextView
+            android:id="@+id/LE_code"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="top"
+            android:text="prod_code"
+            android:paddingStart="8dp"
+            android:paddingLeft="8dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="50"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/LE_precio"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:text="prod_precio"
+            android:textAlignment="center"
+            tools:ignore="RtlCompat" />
+
+        <TextView
+            android:id="@+id/LE_stock"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center_horizontal"
+            android:text="prod_stock"
+            android:textAlignment="center" />
+    </LinearLayout>
+</LinearLayout>

@@ -14,21 +14,9 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/Eliminar_del_carrito"
-        app:layout_constraintBottom_toTopOf="@+id/btn_Volver"
         app:layout_constraintEnd_toStartOf="@+id/btn_Confirmar_Compra"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lv_CarritoDeCompras"
-        app:layout_constraintVertical_bias="0.91" />
-
-    <Button
-        android:id="@+id/btn_Volver"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:text="@string/Volver"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/lv_CarritoDeCompras" />
 
     <ListView
         android:id="@+id/lv_CarritoDeCompras"
@@ -40,7 +28,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="60dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_Volver"
+        app:layout_constraintBottom_toTopOf="@+id/btn_CarritoVolver"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -59,12 +47,26 @@
         android:id="@+id/btn_Confirmar_Compra"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:text="@string/Confirmar_compra"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btn_EliminarDelCarrito"
         app:layout_constraintTop_toBottomOf="@+id/lv_CarritoDeCompras" />
+
+    <Button
+        android:id="@+id/btn_CarritoVolver"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="16dp"
+        android:text="Volver"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

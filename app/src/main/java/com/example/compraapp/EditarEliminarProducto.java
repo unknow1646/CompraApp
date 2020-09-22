@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,7 +23,7 @@ import android.widget.Toast;
 public class EditarEliminarProducto extends AppCompatActivity {
     ListView lv_Editar;
     Button btn_editar, btn_eliminar, btn_volver;
-    ArrayAdapter lista_productos;
+    EditarListAdapter lista_productos;
     DataBaseHelper dataBaseHelper;
 
     @Override
@@ -32,11 +33,12 @@ public class EditarEliminarProducto extends AppCompatActivity {
         lv_Editar = findViewById(R.id.lv_EditarEliminar);
         btn_editar = findViewById(R.id.btn_EditarProducto);
         btn_eliminar = findViewById(R.id.btn_EliminarProducto);
+        btn_volver = findViewById(R.id.btn_Editar_Volver);
 
         lv_Editar.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
 
         dataBaseHelper = new DataBaseHelper(EditarEliminarProducto.this);
-        lista_productos = new ArrayAdapter<ModeloProducto>(EditarEliminarProducto.this, android.R.layout.simple_list_item_single_choice, dataBaseHelper.getProductos(194398239));
+        lista_productos = new EditarListAdapter(EditarEliminarProducto.this, R.layout.layout_editar_productos, dataBaseHelper.getProductos(194398239));
         lv_Editar.setAdapter(lista_productos);
 
 
@@ -72,13 +74,27 @@ public class EditarEliminarProducto extends AppCompatActivity {
                     dataBaseHelper = new DataBaseHelper(EditarEliminarProducto.this);
                     dataBaseHelper.deleteProducto(modeloProducto);
 
-                    lista_productos = new ArrayAdapter<ModeloProducto>(EditarEliminarProducto.this, android.R.layout.simple_list_item_single_choice, dataBaseHelper.getProductos(194398239));
+                    lista_productos = new EditarListAdapter(EditarEliminarProducto.this, R.layout.layout_editar_productos, dataBaseHelper.getProductos(194398239));
                     lv_Editar.setAdapter(lista_productos);
                 }
                 catch(Exception e){
                     Toast.makeText(EditarEliminarProducto.this, "No hay producto seleccionado",Toast.LENGTH_LONG).show();
 
                 }
+            }
+        });
+        btn_volver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        lv_Editar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                lista_productos.pos = i;
+                lista_productos.notifyDataSetChanged();
             }
         });
 

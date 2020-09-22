@@ -34,15 +34,28 @@ public class RegistrarProducto extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ModeloProducto modeloProducto;
+                if(prod_codigo.getText().toString().matches("")){
+                    Toast.makeText(RegistrarProducto.this,"Código de producto vacío",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(prod_nombre.getText().toString().matches("")){
+                    Toast.makeText(RegistrarProducto.this,"Nombre de producto vacío",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(prod_stock.getText().toString().matches("")){
+                    Toast.makeText(RegistrarProducto.this,"Stock de producto vacío",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(prod_tipo.getText().toString().matches("")){
+                    Toast.makeText(RegistrarProducto.this,"Tipo de producto vacío",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(prod_precio.getText().toString().matches("")){
+                    Toast.makeText(RegistrarProducto.this,"Precio de producto vacío",Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                try{
-                    modeloProducto = new ModeloProducto(Integer.parseInt(prod_codigo.getText().toString()), 194398239, prod_nombre.getText().toString(),Integer.parseInt(prod_stock.getText().toString()),prod_tipo.getText().toString(),Integer.parseInt(prod_precio.getText().toString()));
-                    Toast.makeText(RegistrarProducto.this, modeloProducto.toString(), Toast.LENGTH_SHORT).show();
-                }
-                catch(Exception e){
-                    Toast.makeText(RegistrarProducto.this, "ERROR", Toast.LENGTH_SHORT).show();
-                    modeloProducto = new ModeloProducto(0 ,0 ,"x", 0, "y",0);
-                }
+                modeloProducto = new ModeloProducto(Integer.parseInt(prod_codigo.getText().toString()), 194398239, prod_nombre.getText().toString(),Integer.parseInt(prod_stock.getText().toString()),prod_tipo.getText().toString(),Integer.parseInt(prod_precio.getText().toString()));
 
                 dataBaseHelper = new DataBaseHelper(RegistrarProducto.this);
                 if(dataBaseHelper.checkProducto(modeloProducto)==false){
@@ -50,7 +63,12 @@ public class RegistrarProducto extends AppCompatActivity {
                 }
                 else {
                     boolean success = dataBaseHelper.agregarProducto(modeloProducto);
-                    Toast.makeText(RegistrarProducto.this, "Success = " + success, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegistrarProducto.this, "Producto registrado con éxito", Toast.LENGTH_SHORT).show();
+                    prod_codigo.setText("");
+                    prod_nombre.setText("");
+                    prod_precio.setText("");
+                    prod_stock.setText("");
+                    prod_tipo.setText("");
                 }
             }
         });
@@ -58,8 +76,7 @@ public class RegistrarProducto extends AppCompatActivity {
         btn_Volver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(RegistrarProducto.this, MainActivity.class);
-                startActivity(i);
+               finish();
             }
         });
     }

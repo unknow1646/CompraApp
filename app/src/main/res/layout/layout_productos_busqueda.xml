@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LL_parent"
     android:layout_width="match_parent"
     android:layout_height="60dp"
     android:orientation="horizontal"
@@ -9,7 +10,7 @@
         android:id="@+id/IL_productoNombre"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_weight="30"
+        android:layout_weight="40"
         android:gravity="center"
         android:text="nom_producto"
         android:textAlignment="center"
@@ -18,7 +19,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="25"
+        android:layout_weight="60"
         android:orientation="vertical">
 
         <TextView
@@ -38,22 +39,4 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="45"
-        android:orientation="horizontal">
-
-        <RadioButton
-            android:id="@+id/rb_item_selection"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:checked="false"
-            android:enabled="false"
-            android:buttonTint="@color/colorPrimary"
-            />
-    </LinearLayout>
 </LinearLayout>
