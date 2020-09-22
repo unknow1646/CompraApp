@@ -45,6 +45,7 @@ public class EditarEliminarProducto extends AppCompatActivity {
         dataBaseHelper = new DataBaseHelper(EditarEliminarProducto.this);
         lista_productos = new EditarListAdapter(EditarEliminarProducto.this, R.layout.layout_editar_productos, dataBaseHelper.getProductos(rut));
         lv_Editar.setAdapter(lista_productos);
+        lista_productos.notifyDataSetChanged();
 
 
         btn_editar.setOnClickListener(new View.OnClickListener() {
@@ -64,6 +65,7 @@ public class EditarEliminarProducto extends AppCompatActivity {
                 intent.putExtra("prod_precio",modeloProducto.getProd_precio());
 
                 startActivity(intent);
+                lista_productos.notifyDataSetChanged();
 
 
 
@@ -103,5 +105,13 @@ public class EditarEliminarProducto extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        lista_productos = new EditarListAdapter(EditarEliminarProducto.this, R.layout.layout_editar_productos, dataBaseHelper.getProductos(rut));
+        lv_Editar.setAdapter(lista_productos);
+        lista_productos.notifyDataSetChanged();
     }
 }

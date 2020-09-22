@@ -18,6 +18,7 @@ public class BusquedaDeProductos extends AppCompatActivity {
     EditText ti_buscar;
     ProductoListAdapter lista_productos;
     DataBaseHelper dataBaseHelper;
+    int rut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,7 @@ public class BusquedaDeProductos extends AppCompatActivity {
         btn_agregar = findViewById(R.id.btn_AgregarAlCarrito);
         btn_buscar = findViewById(R.id.btn_buscar);
         ti_buscar = findViewById(R.id.ti_ProductoBusqueda);
+        rut = ((DatosUsuario) BusquedaDeProductos.this.getApplication()).getRut_user();
 
         dataBaseHelper = new DataBaseHelper(BusquedaDeProductos.this);
 //        lista_productos = new ArrayAdapter<ModeloProducto>(BusquedaDeProductos.this, android.R.layout.simple_list_item_single_choice,dataBaseHelper.getEveryoneBusqueda(ti_buscar.getText().toString()));
@@ -49,7 +51,7 @@ public class BusquedaDeProductos extends AppCompatActivity {
                 dataBaseHelper = new DataBaseHelper(BusquedaDeProductos.this);
                 modeloProducto = (ModeloProducto) lv_busqueda.getItemAtPosition(lv_busqueda.getCheckedItemPosition());
 
-                if(dataBaseHelper.agregarProductoAlCarro(modeloProducto, 190033694)) Toast.makeText(BusquedaDeProductos.this, "Producto Agregado", Toast.LENGTH_LONG).show();
+                if(dataBaseHelper.agregarProductoAlCarro(modeloProducto, rut)) Toast.makeText(BusquedaDeProductos.this, "Producto Agregado", Toast.LENGTH_LONG).show();
                 //Toast.makeText(BusquedaDeProductos.this, modeloProducto.toString(),Toast.LENGTH_LONG).show();
 
             }

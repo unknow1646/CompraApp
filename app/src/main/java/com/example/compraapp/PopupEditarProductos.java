@@ -75,12 +75,11 @@ public class PopupEditarProductos extends AppCompatActivity {
                 dataBaseHelper = new DataBaseHelper(PopupEditarProductos.this);
 
 
-                modeloProducto = new ModeloProducto(Integer.parseInt(ti_codigo.getText().toString()), rut, ti_nombre.getText().toString(),Integer.parseInt(ti_stock.getText().toString()),ti_tipo.getText().toString(), Integer.parseInt(ti_stock.getText().toString()));
+                modeloProducto = new ModeloProducto(Integer.parseInt(ti_codigo.getText().toString()), rut, ti_nombre.getText().toString(),Integer.parseInt(ti_stock.getText().toString()),ti_tipo.getText().toString(), Integer.parseInt(ti_precio.getText().toString()));
 
                 dataBaseHelper.updateProductoEdit(rut,codigoProd, modeloProducto);
 
                 Toast.makeText(PopupEditarProductos.this,"Producto editado con éxito!",Toast.LENGTH_LONG).show();
-
                 finish();
 
             }

@@ -73,9 +73,10 @@ public class RegistrarUsuario extends AppCompatActivity {
                         dataBaseHelper.insertarPersona(modeloPersona,password);
                         if (vendedor == true) {
                             dataBaseHelper.insertarVendedor(Integer.parseInt(rut), direccion);
+                            Toast.makeText(RegistrarUsuario.this, "Usuario registrado con éxito!", Toast.LENGTH_SHORT).show();
                         } else {
                             dataBaseHelper.insertarCliente(Integer.parseInt(rut), direccion);
-                            Toast.makeText(RegistrarUsuario.this, "Registrar vendedor", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegistrarUsuario.this, "Usuario registrado con éxito!", Toast.LENGTH_SHORT).show();
 
                         }
                     }

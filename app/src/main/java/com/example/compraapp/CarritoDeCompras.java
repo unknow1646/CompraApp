@@ -17,6 +17,7 @@ public class CarritoDeCompras extends AppCompatActivity {
     ListView lv_carrito;
     DataBaseHelper dataBaseHelper;
     ProductoListAdapter lista_productos;
+    int rut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +27,12 @@ public class CarritoDeCompras extends AppCompatActivity {
         btn_confirmar_compra = findViewById(R.id.btn_CarritoConfirmar);
         lv_carrito = findViewById(R.id.lv_CarritoDeCompras);
 
+        rut = ((DatosUsuario) CarritoDeCompras.this.getApplication()).getRut_user();
+
         lv_carrito.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
 
         dataBaseHelper = new DataBaseHelper(CarritoDeCompras.this);
-        lista_productos = new ProductoListAdapter(CarritoDeCompras.this, R.layout.layout_productos_busqueda, dataBaseHelper.getProductosCarrito(190033694));
+        lista_productos = new ProductoListAdapter(CarritoDeCompras.this, R.layout.layout_productos_busqueda, dataBaseHelper.getProductosCarrito(rut));
 
         lv_carrito.setAdapter(lista_productos);
 
@@ -40,8 +43,8 @@ public class CarritoDeCompras extends AppCompatActivity {
                 try {
                     modeloProducto = (ModeloProducto) lv_carrito.getItemAtPosition(lv_carrito.getCheckedItemPosition());
                     dataBaseHelper = new DataBaseHelper(CarritoDeCompras.this);
-                    dataBaseHelper.deleteProductoCarrito(190033694, modeloProducto.getProd_codigo());
-                    lista_productos = new ProductoListAdapter(CarritoDeCompras.this, R.layout.layout_productos_busqueda, dataBaseHelper.getProductosCarrito(190033694));
+                    dataBaseHelper.deleteProductoCarrito(rut, modeloProducto.getProd_codigo());
+                    lista_productos = new ProductoListAdapter(CarritoDeCompras.this, R.layout.layout_productos_busqueda, dataBaseHelper.getProductosCarrito(rut));
                     lista_productos.notifyDataSetChanged();
                     lv_carrito.setAdapter(lista_productos);
                 }
@@ -54,10 +57,19 @@ public class CarritoDeCompras extends AppCompatActivity {
         btn_confirmar_compra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ModeloCompra modeloCompra;
-                modeloCompra = new ModeloCompra(0,190033694, 194398239,0,0);
+                if(lv_carrito.getAdapter().getCount() == 0){
+                    Toast.makeText(CarritoDeCompras.this,"Carrito vacío!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else {
+                    ModeloCompra modeloCompra;
+                    ModeloProducto modeloProducto = (ModeloProducto) lv_carrito.getItemAtPosition(1);
+                    int ven_rut = modeloProducto.getVen_rut();
 
-                dataBaseHelper.instanciaCompra(modeloCompra);
+                    modeloCompra = new ModeloCompra(0, rut, ven_rut, 0, 0);
+
+                    dataBaseHelper.instanciaCompra(modeloCompra);
+                }
             }
         });
 
