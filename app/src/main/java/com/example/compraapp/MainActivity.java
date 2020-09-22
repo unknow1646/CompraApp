@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
         Button btnVentas = (Button)findViewById(R.id.btn_Main_Ventas);
         Button btnBuscar = findViewById(R.id.btn_main_buscar);
         Button btnMantener = findViewById(R.id.btn_Main_MantencionProductos);
+        Button btnLogin = findViewById(R.id.btn_main_login);
+        Button btnRegistro = findViewById(R.id.btn_main_registro);
 
         dataBaseHelper = new DataBaseHelper(MainActivity.this);
 
@@ -60,6 +62,22 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(MainActivity.this, MantencionDeProductos.class);
+                startActivity(i);
+            }
+        });
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, Login.class);
+                startActivity(i);
+            }
+        });
+
+        btnRegistro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, RegistrarUsuario.class);
                 startActivity(i);
             }
         });
