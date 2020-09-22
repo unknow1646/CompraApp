@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowAnimationFrameStats;
 import android.widget.ArrayAdapter;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ public class ProductoListAdapter extends ArrayAdapter<ModeloProducto> {
     private static final String TAG = "ProductoListAdapter";
     private Context mContext;
     int mResource;
+    int pos = -1;
 
 
     public ProductoListAdapter(@NonNull Context context, int resource, @NonNull List<ModeloProducto> objects) {
@@ -41,11 +43,18 @@ public class ProductoListAdapter extends ArrayAdapter<ModeloProducto> {
         TextView nombre = (TextView) convertView.findViewById(R.id.IL_productoNombre);
         TextView precio = (TextView) convertView.findViewById(R.id.IL_productoPrecio);
         TextView stock = (TextView) convertView.findViewById(R.id.IL_precioStock);
+        RadioButton rb =  (RadioButton) convertView.findViewById(R.id.rb_item_selection);
 
         nombre.setText(prod_nombre);
-        precio.setText("Precio: $"+Integer.toString(prod_precio));
-        stock.setText("Stock disponible: "+Integer.toString(prod_stock));
+        precio.setText("$"+Integer.toString(prod_precio));
+        stock.setText("Stock: "+Integer.toString(prod_stock));
 
+        if(pos == position){
+            rb.setChecked(true);
+        }
+        else{
+            rb.setChecked(false);
+        }
         return convertView;
     }
 }

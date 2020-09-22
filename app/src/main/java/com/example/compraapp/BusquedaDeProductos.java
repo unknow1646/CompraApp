@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,6 +52,15 @@ public class BusquedaDeProductos extends AppCompatActivity {
                 if(dataBaseHelper.agregarProductoAlCarro(modeloProducto, 190033694)) Toast.makeText(BusquedaDeProductos.this, "Producto Agregado", Toast.LENGTH_LONG).show();
                 //Toast.makeText(BusquedaDeProductos.this, modeloProducto.toString(),Toast.LENGTH_LONG).show();
 
+            }
+        });
+
+        lv_busqueda.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                lista_productos.pos = i;
+                lista_productos.notifyDataSetChanged();
+                //Toast.makeText(BusquedaDeProductos.this, "Item Clicked"+lista_productos.pos, Toast.LENGTH_LONG).show();
             }
         });
     }
