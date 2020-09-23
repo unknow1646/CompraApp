@@ -63,7 +63,7 @@ public class CarritoDeCompras extends AppCompatActivity {
                 }
                 else {
                     ModeloCompra modeloCompra;
-                    ModeloProducto modeloProducto = (ModeloProducto) lv_carrito.getItemAtPosition(1);
+                    ModeloProducto modeloProducto = (ModeloProducto) lv_carrito.getItemAtPosition(0);
                     int ven_rut = modeloProducto.getVen_rut();
 
                     modeloCompra = new ModeloCompra(0, rut, ven_rut, 0, 0);
