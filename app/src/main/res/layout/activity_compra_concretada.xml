@@ -7,7 +7,7 @@
     tools:context=".CompraConcretada">
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btn_finalizar_cliente"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -31,14 +31,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <TextView
         android:id="@+id/txt_CodigoCompra"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:clickable="false"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="@string/CompraCode"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btn_finalizar_cliente"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.517"
         app:layout_constraintStart_toStartOf="parent"

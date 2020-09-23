@@ -2,6 +2,7 @@ package com.example.compraapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AbsListView;
@@ -69,6 +70,8 @@ public class CarritoDeCompras extends AppCompatActivity {
                     modeloCompra = new ModeloCompra(0, rut, ven_rut, 0, 0);
 
                     dataBaseHelper.instanciaCompra(modeloCompra);
+                    Intent i = new Intent(CarritoDeCompras.this, CompraConcretada.class);
+                    startActivity(i);
                 }
             }
         });
@@ -80,6 +83,16 @@ public class CarritoDeCompras extends AppCompatActivity {
                 lista_productos.notifyDataSetChanged();
             }
         });
+
+
+
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        lista_productos = new ProductoListAdapter(CarritoDeCompras.this, R.layout.layout_productos_busqueda, dataBaseHelper.getProductosCarrito(rut));
+        lv_carrito.setAdapter(lista_productos);
+        lista_productos.notifyDataSetChanged();
+    }
 }

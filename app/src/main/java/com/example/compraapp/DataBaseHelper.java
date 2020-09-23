@@ -120,7 +120,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         if(cursor.moveToFirst()){
             //loop results
             do{
-                int compraid = cursor.getInt(3);
+                int compraid = cursor.getInt(2);
                 int compraclirut = cursor.getInt(0);
                 int compravenrut = cursor.getInt(1);
                 int comprahoranetrega=cursor.getInt(3);
@@ -150,6 +150,21 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.update("compra", cv, "_id=" +id  , null);
     }
 
+    public int getCodigoCompraCli(int rut){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String queryString = "SELECT com_id FROM compra WHERE cli_rut = "+rut;
+        Cursor cursor = db.rawQuery(queryString,null);
+        cursor.moveToFirst();
+        return cursor.getInt(0);
+    }
+
+    public void deleteSolCompra(int code){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String queryString = "DELETE FROM compra WHERE com_id = "+code;
+        db.execSQL(queryString);
+        db.close();
+    }
+
     //
     public void updateFechaHoraCompra(ModeloCompra modeloCompra){
         int id = 0;
@@ -171,10 +186,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public boolean deleteAllCarrito(int rut){
+    public void deleteAllCarrito(int rut){
         SQLiteDatabase db = this.getWritableDatabase();
-        int ret = db.delete("carr_prod", "cli_rut", new String[]{Integer.toString(rut)});
-        return ret == 1;
+        String queryString = "DELETE FROM carr_prod WHERE cli_rut = "+rut;
+        db.execSQL(queryString);
     }
 
 
@@ -282,7 +297,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
   
     public int getcodigo(int rut) {
         int cod=0;
-        String queryString = "SELECT com_autoincrementable FROM compra WHERE cli_rut="+rut +"AND com_hora_entrega = 0 AND com_fecha_entrega = 0";
+        String queryString = "SELECT com_autoincrementable FROM compra WHERE cli_rut="+rut +" AND com_hora_entrega = 0 AND com_fecha_entrega = 0";
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(queryString, null);
         if (cursor.moveToFirst()) {
@@ -305,6 +320,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL(queryString);
 
     }
+
+
 
     public void deleteProducto(ModeloProducto modeloProducto){
         SQLiteDatabase db = getWritableDatabase();
